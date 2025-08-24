@@ -2,7 +2,7 @@ from typing import Optional, List
 from datetime import date, timedelta, timezone, datetime
 from uuid import uuid4
 from enum import Enum
-from sqlalchemy import String, Date
+from sqlalchemy import String, Date, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 import jwt
 import bcrypt
@@ -20,7 +20,7 @@ class User(Base):
     password_: Mapped[str] = mapped_column(String(100), nullable=False)
     first_name: Mapped[Optional[str]] = mapped_column(String(20), nullable=True, default=None)
     last_name: Mapped[Optional[str]] = mapped_column(String(20), nullable=True, default=None)
-    bio: Mapped[Optional[str]] = mapped_column(String(), nullable=True, default=None)
+    bio: Mapped[Optional[str]] = mapped_column(Text(), nullable=True, default=None)
     role: Mapped[Role] = mapped_column(default=Role.user)
     teams: Mapped[List["Team"]] = relationship(secondary=RoleUserByTeam.__tablename__, back_populates="users", lazy="selectin")
 

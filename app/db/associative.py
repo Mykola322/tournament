@@ -26,9 +26,9 @@ class RoleUserByTeam(Base):
 
     id = Column(String(100), primary_key=True)
     user_id = Column(String(100), ForeignKey("users.id", ondelete="CASCADE"))
-    team_id = Column(String(100), ForeignKey("users.id", ondelete="CASCADE"))
+    team_id = Column(String(100), ForeignKey("teams.id", ondelete="CASCADE"))
     user: Mapped["User"] = relationship()
-    team: Mapped["Team"] = relationship()
+    team: Mapped["Team"] = relationship(lazy="selectin")
     role: Mapped[Role] = mapped_column(default=Role.member)
 
     def __init__(self, *args, **kwargs):
